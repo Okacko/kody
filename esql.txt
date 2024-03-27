@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmFilter.msgnode="ComIbmFilter.msgnode" xmlns:ComIbmFlowOrder.msgnode="ComIbmFlowOrder.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmPassthru.msgnode="ComIbmPassthru.msgnode" xmlns:ComIbmPublication.msgnode="ComIbmPublication.msgnode" xmlns:ComIbmRoute.msgnode="ComIbmRoute.msgnode" xmlns:ComIbmThrow.msgnode="ComIbmThrow.msgnode" xmlns:cz_trask_mpo_logging_LogErrorOld.subflow="cz/trask/mpo/logging/LogErrorOld.subflow"
+    xmlns:cz_trask_mpo_logging_LogPayload.subflow="cz/trask/mpo/logging/LogPayload.subflow" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:gen_com_ibm_cz_mpo_ginis_notification_DetailOdeslani_SSLIntegrationInterface_GINISNotifikacniSluzbaMasterFilter.subflow="gen/com/ibm/cz/mpo/ginis/notification/DetailOdeslani_SSLIntegrationInterface_GINISNotifikacniSluzbaMasterFilter.subflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="com/ibm/cz/mpo/ginis/notification/GINISNotifikacniSluzbaMasterFilter.msgflow" nsPrefix="com_ibm_cz_mpo_ginis_notification_GINISNotifikacniSluzbaMasterFilter.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.Notification_Input_Queue_Name" name="Notification_Input_Queue_Name" lowerBound="1" defaultValueLiteral="GINIS.NOTIFIKACNI.SLUZBA.EVENT.QUEUE">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.SSL_WebService_URL" name="SSL_WebService_URL" defaultValueLiteral="http://localhost:8088/MockGINSSLServer/SSLIntegrationInterfaceService">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.IDZdrojovehoFunkcnihoMista" name="IDZdrojovehoFunkcnihoMista">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <translation xmi:type="utility:TranslatableString" key="GINISNotifikacniSluzbaMasterFilter" bundleName="com/ibm/cz/mpo/ginis/notification/GINISNotifikacniSluzbaMasterFilter" pluginId="NotificationServices"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/NotificationServices/icons/full/obj16/GINISNotifikacniSluzbaMasterFilter.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/NotificationServices/icons/full/obj30/GINISNotifikacniSluzbaMasterFilter.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="12,21" queueName="GINIS.NOTIFIKACNI.SLUZBA.EVENT.QUEUE" messageDomainProperty="XMLNSC" messageSetProperty="NotificationServicesMessageSet" validateMaster="contentAndValue">
+        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmRoute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="180,33">
+        <outTerminals terminalNodeID="wfl_uda_preddoc" dynamic="true" label="wfl_uda_preddoc"/>
+        <outTerminals terminalNodeID="wfl_uda_dorvyp" dynamic="true" label="wfl_uda_dorvyp"/>
+        <outTerminals terminalNodeID="wfl_uda_vyprvyp" dynamic="true" label="wfl_uda_vyprvyp"/>
+        <outTerminals terminalNodeID="ssl_uda_dsvypdz" dynamic="true" label="ssl_uda_dsvypdz"/>
+        <outTerminals terminalNodeID="wfl_uda_zmenele" dynamic="true" label="wfl_uda_zmenele"/>
+        <outTerminals terminalNodeID="ssl_uda_pridpis" dynamic="true" label="ssl_uda_pridpis"/>
+        <translation xmi:type="utility:ConstantString" string="ZUDEventTypeRouting"/>
+        <filterTable filterPattern="contains($Root/XMLNSC/tns:ZUDNotifikacniUdalost/TypUdalosti , &quot;wfl_uda_preddoc&quot;)" routingOutputTerminal="wfl_uda_preddoc"/>
+        <filterTable filterPattern="contains($Root/XMLNSC/tns:ZUDNotifikacniUdalost/TypUdalosti, &quot;wfl_uda_dorvyp&quot;)" routingOutputTerminal="wfl_uda_dorvyp"/>
+        <filterTable filterPattern="contains($Root/XMLNSC/tns:ZUDNotifikacniUdalost/TypUdalosti, &quot;wfl_uda_vyprvyp&quot;)" routingOutputTerminal="wfl_uda_vyprvyp"/>
+        <filterTable filterPattern="contains($Root/XMLNSC/tns:ZUDNotifikacniUdalost/TypUdalosti, &quot;ssl_uda_dsvypdz&quot;)" routingOutputTerminal="ssl_uda_dsvypdz"/>
+        <filterTable filterPattern="contains($Root/XMLNSC/tns:ZUDNotifikacniUdalost/TypUdalosti, &quot;wfl_uda_zmenele&quot;)" routingOutputTerminal="wfl_uda_zmenele"/>
+        <filterTable filterPattern="contains($Root/XMLNSC/tns:ZUDNotifikacniUdalost/TypUdalosti, &quot;ssl_uda_pridpis&quot;)" routingOutputTerminal="ssl_uda_pridpis"/>
+        <nsMappingTable nsPrefix="tns" namespace="http://cdt.ws.esb.mpo.cz/GINISNotifikacniSluzba/1"/>
+      </nodes>
+      <nodes xmi:type="ComIbmPassthru.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="348,33">
+        <translation xmi:type="utility:ConstantString" string="UdalostPredaniDokumentu"/>
+      </nodes>
+      <nodes xmi:type="ComIbmPassthru.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="299,209">
+        <translation xmi:type="utility:ConstantString" string="UdalostDoruceniZasilky"/>
+      </nodes>
+      <nodes xmi:type="ComIbmPassthru.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="235,394">
+        <translation xmi:type="utility:ConstantString" string="UdalostVypraveniZasilky"/>
+      </nodes>
+      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="389,-27" messageText="Invalid ZUD Event Type parameter found!">
+        <translation xmi:type="utility:ConstantString" string="Throw"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="913,210" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_FulfilUdalostDoruceniZasilky.Main" computeMode="all">
+        <translation xmi:type="utility:ConstantString" string="FulfilUdalostDoruceniZasilky"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_15" location="927,395" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_FulfilUdalostVypraveniZasilky.Main" computeMode="all">
+        <translation xmi:type="utility:ConstantString" string="FulfilUdalostVypraveniZasilky"/>
+      </nodes>
+      <nodes xmi:type="gen_com_ibm_cz_mpo_ginis_notification_DetailOdeslani_SSLIntegrationInterface_GINISNotifikacniSluzbaMasterFilter.subflow:FCMComposite_1" xmi:id="FCMComposite_1_11" location="695,210">
+        <translation xmi:type="utility:ConstantString" string="DetailOdeslani_SSLIntegrationInterface"/>
+        <shortDescription xmi:type="utility:ConstantString" string="Invokes WSDL operation and extracts the response from SOAP message."/>
+        <longDescription xmi:type="utility:ConstantString" string="This subflow invokes the WSDL operation and extracts message body from the response message."/>
+      </nodes>
+      <nodes xmi:type="gen_com_ibm_cz_mpo_ginis_notification_DetailOdeslani_SSLIntegrationInterface_GINISNotifikacniSluzbaMasterFilter.subflow:FCMComposite_1" xmi:id="FCMComposite_1_19" location="699,395">
+        <translation xmi:type="utility:ConstantString" string="DetailOdeslani_SSLIntegrationInterface_1"/>
+        <shortDescription xmi:type="utility:ConstantString" string="Invokes WSDL operation and extracts the response from SOAP message."/>
+        <longDescription xmi:type="utility:ConstantString" string="This subflow invokes the WSDL operation and extracts message body from the response message."/>
+      </nodes>
+      <nodes xmi:type="ComIbmFlowOrder.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_20" location="451,209">
+        <translation xmi:type="utility:ConstantString" string="Flow Order"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFlowOrder.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_21" location="405,394">
+        <translation xmi:type="utility:ConstantString" string="Flow Order1"/>
+      </nodes>
+      <nodes xmi:type="ComIbmPassthru.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_22" location="1095,396">
+        <translation xmi:type="utility:ConstantString" string="EnvironmentFufilled"/>
+      </nodes>
+      <nodes xmi:type="ComIbmPassthru.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_29" location="1081,211">
+        <translation xmi:type="utility:ConstantString" string="EnvironmentFullfiled"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_30" location="478,310" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_SetLocalEnvForDoruceniZasilky.Main" computeMode="all">
+        <translation xmi:type="utility:ConstantString" string="SetLocalEnvForDoruceniZasilky"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_31" location="517,496" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_SetLocalEnvForVypraveniZasilky.Main" computeMode="all">
+        <translation xmi:type="utility:ConstantString" string="SetLocalEnvForVypraveniZasilky"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_38" location="518,209" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_CreateOdeslaniRequestMapping_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="CreateOdeslaniRequestMapping"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_39" location="677,311" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_EnhanceUdalostDoruceniZasilkyMapping_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="EnhanceUdalostDoruceniZasilkyMapping"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_40" location="493,394" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_CreateRequestDetailOdeslaniMapping_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="CreateRequestDetailOdeslaniMapping"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_41" location="710,497" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_EnhanceUdalostVypraveniZasilkyMapping_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="EnhanceUdalostVypraveniZasilkyMapping"/>
+      </nodes>
+      <nodes xmi:type="cz_trask_mpo_logging_LogPayload.subflow:FCMComposite_1" xmi:id="FCMComposite_1_12" location="208,-27">
+        <translation xmi:type="utility:ConstantString" string="LogPayload"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFilter.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="92,21" filterExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaFilter_SetIdUdalosti.Main">
+        <translation xmi:type="utility:ConstantString" string="SetIdUdalosti"/>
+      </nodes>
+      <nodes xmi:type="cz_trask_mpo_logging_LogErrorOld.subflow:FCMComposite_1" xmi:id="FCMComposite_1_24" location="92,98">
+        <translation xmi:type="utility:ConstantString" string="LogErrorOld"/>
+      </nodes>
+      <nodes xmi:type="ComIbmPublication.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_26" location="1302,313">
+        <translation xmi:type="utility:ConstantString" string="Publication"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_28" location="1219,312" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_SetTopic.Main">
+        <translation xmi:type="utility:ConstantString" string="SetTopic"/>
+      </nodes>
+      <nodes xmi:type="ComIbmPublication.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_25" location="1265,34">
+        <translation xmi:type="utility:ConstantString" string="PublicationPredani"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_32" location="1375,186" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_NoMatchLog.Main">
+        <translation xmi:type="utility:ConstantString" string="NoMatchLog"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_33" location="665,33" transaction="commit" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_SetTopicPredani.Main">
+        <translation xmi:type="utility:ConstantString" string="SetTopicPredaniAndFilter"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="1109,89" computeExpression="esql://routine/com.ibm.cz.mpo.ginis.notification#GINISNotifikacniSluzbaMasterFilter_SetTopicPrideleni.Main">
+        <translation xmi:type="utility:ConstantString" string="SetTopicPrideleni"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_5" sourceTerminalName="wfl_uda_preddoc" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_5" sourceTerminalName="wfl_uda_dorvyp" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_5" sourceTerminalName="wfl_uda_vyprvyp" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_5" sourceTerminalName="ssl_uda_dsvypdz" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_10" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.default" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_20" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_21" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_11" targetNode="FCMComposite_1_14" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.DetailOdeslaniResponse" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_14" targetNode="FCMComposite_1_15" sourceNode="FCMComposite_1_19" sourceTerminalName="OutTerminal.DetailOdeslaniResponse" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_15" targetNode="FCMComposite_1_22" sourceNode="FCMComposite_1_15" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_21" targetNode="FCMComposite_1_29" sourceNode="FCMComposite_1_14" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_25" targetNode="FCMComposite_1_30" sourceNode="FCMComposite_1_20" sourceTerminalName="OutTerminal.second" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_27" targetNode="FCMComposite_1_31" sourceNode="FCMComposite_1_21" sourceTerminalName="OutTerminal.second" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_53" targetNode="FCMComposite_1_38" sourceNode="FCMComposite_1_20" sourceTerminalName="OutTerminal.first" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_54" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_38" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_56" targetNode="FCMComposite_1_39" sourceNode="FCMComposite_1_30" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_58" targetNode="FCMComposite_1_40" sourceNode="FCMComposite_1_21" sourceTerminalName="OutTerminal.first" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_59" targetNode="FCMComposite_1_19" sourceNode="FCMComposite_1_40" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_61" targetNode="FCMComposite_1_41" sourceNode="FCMComposite_1_31" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_13" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_20" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_13" sourceTerminalName="OutTerminal.true" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_22" targetNode="FCMComposite_1_12" sourceNode="FCMComposite_1_13" sourceTerminalName="OutTerminal.true" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_23" targetNode="FCMComposite_1_24" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_24" targetNode="FCMComposite_1_24" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.catch" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_26" sourceNode="FCMComposite_1_28" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_17" targetNode="FCMComposite_1_28" sourceNode="FCMComposite_1_39" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_26" targetNode="FCMComposite_1_28" sourceNode="FCMComposite_1_41" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in">
+        <bendPoints>400,-11,-26,174</bendPoints>
+      </connections>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_34" targetNode="FCMComposite_1_32" sourceNode="FCMComposite_1_25" sourceTerminalName="OutTerminal.noMatch" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_35" targetNode="FCMComposite_1_32" sourceNode="FCMComposite_1_26" sourceTerminalName="OutTerminal.noMatch" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_38" targetNode="FCMComposite_1_33" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_25" sourceNode="FCMComposite_1_33" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_12" targetNode="FCMComposite_1_28" sourceNode="FCMComposite_1_5" sourceTerminalName="wfl_uda_zmenele" targetTerminalName="InTerminal.in">
+        <bendPoints>125,96,-861,-184</bendPoints>
+        <bendPoints>980,95,-27,-184</bendPoints>
+      </connections>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_5" sourceTerminalName="ssl_uda_pridpis" targetTerminalName="InTerminal.in">
+        <bendPoints>124,45,-790,-9</bendPoints>
+      </connections>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_16" targetNode="FCMComposite_1_26" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in">
+        <bendPoints>113,-9,-65,-233</bendPoints>
+      </connections>
+    </composition>
+    <propertyOrganizer>
+      <propertyDescriptor groupName="Group.Flow_Properties" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.mq.MQQueueNameEditor" configurable="true" describedAttribute="Property.Notification_Input_Queue_Name">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.Notification_Input_Queue_Name" bundleName="com/ibm/cz/mpo/ginis/notification/GINISNotifikacniSluzbaMasterFilter" pluginId="NotificationServices"/>
+        <propertyDescriptor groupName="Group.XRG_Properties" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.soap.http.SOAP_Over_HTTP_WebServicesURLPropertyEditor" compiler="com.ibm.etools.mft.ibmnodes.compilers.GenericSOAPCompiler" configurable="true" describedAttribute="Property.SSL_WebService_URL">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.SSL_WebService_URL" bundleName="gen/com/ibm/cz/mpo/ginis/notification/DetailOdeslani_SSLIntegrationInterface_GINISNotifikacniSluzbaMasterFilter" pluginId="NotificationServices"/>
+          <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.IDZdrojovehoFunkcnihoMista">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.IDZdrojovehoFunkcnihoMista" bundleName="com/ibm/cz/mpo/ginis/notification/GINISNotifikacniSluzbaMasterFilter" pluginId="NotificationServices"/>
+          </propertyDescriptor>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+    <attributeLinks promotedAttribute="Property.Notification_Input_Queue_Name" overriddenNodes="FCMComposite_1_1">
+      <overriddenAttribute href="ComIbmMQInput.msgnode#Property.queueName"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.SSL_WebService_URL" overriddenNodes="FCMComposite_1_11 FCMComposite_1_19">
+      <overriddenAttribute href="gen/com/ibm/cz/mpo/ginis/notification/DetailOdeslani_SSLIntegrationInterface_GINISNotifikacniSluzbaMasterFilter.subflow#Property.SSL_WebService_URL"/>
+    </attributeLinks>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
